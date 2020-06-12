@@ -36,3 +36,20 @@ TaskCheckbox(
 
 ``` 
 `isChecked` variable is passed into TaskCheckbox as a new property, so it can be used to update the checkbox. 
+
+## Lifting State
+
+![lift state](doc/widget-tree.PNG)
+
+* Lift the State of tasks list to TasksScreen
+
+  * Cut & Paste tasks list into TasksScreen
+  * Convert TasksScreen into Stateful Widget
+  * Pass tasks list into TaskList from TasksScreen
+  * Create TaskList constructor that accepts task list as a property
+
+* Edit AddTaskScreen
+  
+  * save newTaskTitle in onChanged of TextField
+  * Create a AddTaskScreen callback inside of TasksScreen that prints newTaskTitle
+  * Create AddTaskScreen constructor that accepts a callback as a property
