@@ -46,7 +46,14 @@ TaskCheckbox(
   * Cut & Paste tasks list into TasksScreen
   * Convert TasksScreen into Stateful Widget
   * Pass tasks list into TaskList from TasksScreen
+
+    `child: TasksList(tasks)`
   * Create TaskList constructor that accepts task list as a property
+
+    ```dart 
+    final List<Task> tasks;
+    TasksList(this.tasks);
+    ```
 
 * Edit AddTaskScreen
   
