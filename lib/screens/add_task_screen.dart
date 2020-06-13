@@ -33,6 +33,8 @@ class AddTaskScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               onChanged: (newText) {
                 newTaskTitle = newText;
+                print('from text field');
+                print(newTaskTitle);
               },
             ),
             SizedBox(
@@ -40,6 +42,8 @@ class AddTaskScreen extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
+                print('from button');
+                print(newTaskTitle);
                 addTaskCallback(newTaskTitle);
               },
               color: Colors.lightBlueAccent,
