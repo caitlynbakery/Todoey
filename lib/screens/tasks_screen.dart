@@ -13,7 +13,6 @@ class _TasksScreenState extends State<TasksScreen> {
     Task(name: 'Buy Milk'),
     Task(name: 'Buy Cheese'),
     Task(name: 'Stan SKZ'),
-    Task(name: 'Listen to BTS'),
   ];
 
   @override
@@ -27,7 +26,10 @@ class _TasksScreenState extends State<TasksScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) => AddTaskScreen((newTaskTitle) {
-                    print(newTaskTitle);
+                    setState(() {
+                      tasks.add(Task(name: newTaskTitle));
+                    });
+                    Navigator.pop(context);
                   }));
 //            isScrollControlled: true,
 //            builder: (context) => SingleChildScrollView(
@@ -71,7 +73,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${tasks.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,

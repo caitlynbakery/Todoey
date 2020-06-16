@@ -60,3 +60,66 @@ TaskCheckbox(
   * save newTaskTitle in onChanged of TextField
   * Create a AddTaskScreen callback inside of TasksScreen that prints newTaskTitle
   * Create AddTaskScreen constructor that accepts a callback as a property
+
+## Provider Widget
+
+The Provider carries the state across multiple widgets. It is created from the [Inherited widget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) and acts as a wrapper around it. 
+
+![](doc/level-widgets.PNG)
+
+### Simple Scenario - No ChangeNotifier
+* import the provider package from dart
+* Create Provider widget around the top level widget.
+In the example below, the Provider supplies the data variable to be used across the different widgets. 
+
+```dart
+Widget build(BuildContext context) {
+return Provider<String>(
+  builder: (context) => data,
+  child: MaterialApp()
+)}
+```
+
+* To access the data variable, use the following code. In the example, the Provider is returning the data so that it can be accessed within the Text widget. 
+
+```dart
+return Text(Provider.of<String>(context));
+```
+
+### Complex Scenario - ChangeNotifier
+
+ This is more complex since it uses a method called ChangeNotifier that is prebuilt into Flutter. Angela used it to capture the updates from MyTextField into MyText. 
+
+ The first step is to create a separate Data class that extends the ChangeNotifier class to update our data String. 
+
+ ```dart
+class Data extends ChangeNotifier{
+  String data = 'Some data'
+}
+ ```
+
+Next, we have to change the Provider class into a ChangeNotifierProvider that supplies a Data object. 
+
+```dart
+return ChangeNotifierProvider<Data>(
+  builder: (context) => Data(),
+)
+```
+
+We also have to alter the way the data is accessed from the Provider. Since the data is now in a separate Data class, you need to access the info from the .data property. 
+
+```dart
+return Text(Provider.of<Data>(context).data);
+```
+
+Create a changeString method within the Data class to update the string. The key part is the notifyListeners method which sends out a notification to rebuild the widgets that are listening to it. 
+
+Finally, create a onChanged method inside MyTextField that accesses the changeString method from Provider class. The changeString method updates widgets with the notifyListeners method. 
+
+```dart
+TextField(
+  onChanged: (newText){
+    Provider.of<Data>(context).changeString(newText);
+  }
+)
+```
