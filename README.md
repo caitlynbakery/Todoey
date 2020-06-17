@@ -71,11 +71,12 @@ The Provider carries the state across multiple widgets. It is created from the [
 * import the provider package from dart
 * Create Provider widget around the top level widget.
 In the example below, the Provider supplies the data variable to be used across the different widgets. 
+* Angela's lesson shows Provider v3.0, but it has been updated to v4.0. In the newest version, builder method is replaced with the create and update methods. 
 
 ```dart
 Widget build(BuildContext context) {
 return Provider<String>(
-  builder: (context) => data,
+  create: (context) => data,
   child: MaterialApp()
 )}
 ```
@@ -114,12 +115,12 @@ return Text(Provider.of<Data>(context).data);
 
 Create a changeString method within the Data class to update the string. The key part is the notifyListeners method which sends out a notification to rebuild the widgets that are listening to it. 
 
-Finally, create a onChanged method inside MyTextField that accesses the changeString method from Provider class. The changeString method updates widgets with the notifyListeners method. 
+Finally, create a onChanged method inside MyTextField that accesses the changeString method from Provider class. The changeString method updates widgets with the notifyListeners method. The [listen: false](https://pub.dev/documentation/provider/latest/provider/Provider/of.html) is neccessary to implement the example below.
 
 ```dart
 TextField(
   onChanged: (newText){
-    Provider.of<Data>(context).changeString(newText);
+    Provider.of<Data>(context, listen: false).changeString(newText);
   }
 )
 ```
