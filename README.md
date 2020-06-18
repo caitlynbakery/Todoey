@@ -115,7 +115,7 @@ return Text(Provider.of<Data>(context).data);
 
 Create a changeString method within the Data class to update the string. The key part is the notifyListeners method which sends out a notification to rebuild the widgets that are listening to it. 
 
-Finally, create a onChanged method inside MyTextField that accesses the changeString method from Provider class. The changeString method updates widgets with the notifyListeners method. The [listen: false](https://pub.dev/documentation/provider/latest/provider/Provider/of.html) is neccessary to implement the example below.
+Finally, create a onChanged method inside MyTextField that accesses the changeString method from Provider class. The changeString method updates widgets with the notifyListeners method. The [listen: false](https://pub.dev/documentation/provider/latest/provider/Provider/of.html) is neccessary to implement the example below. `listen: false` is required for STATELESS widgets, while `listen: true` is used for STATEFUL widgets. 
 
 ```dart
 TextField(
@@ -124,3 +124,30 @@ TextField(
   }
 )
 ```
+
+## Position of ChangeNotifierProvider
+
+In my Todoey app, the ChangeNotifierProvider is placed in the `main.dart` file around the topmost widget. In this way, all the files under `main.dart` have access to the Data object. 
+
+```dart
+ return ChangeNotifierProvider(
+      create: (context) => Data(),
+      child: MaterialApp(
+        home: TasksScreen(),
+      ),
+    );
+```
+
+## Consumer Widget
+
+The Consumer widget belongs to the Provider class and simplifies the repetition of `Provider.of` method. Instead, it assigns `Provider.of` method to a variable to shorten the code.
+
+```dart
+return Consumer<Data>(
+  builder: (context, taskData, child) {
+    return ListView.builder(
+      itemBuilder: (context, index){
+        return TaskTile(
+          taskTitle: taskData.tasks[index].name
+    )})})
+``` 

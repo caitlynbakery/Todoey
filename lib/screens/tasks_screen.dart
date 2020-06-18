@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:todoeyflutter/widgets/tasks_list.dart';
 import 'package:todoeyflutter/screens/add_task_screen.dart';
-import 'package:todoeyflutter/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todoeyflutter/models/task_data.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy Milk'),
-    Task(name: 'Buy Cheese'),
-    Task(name: 'Stan SKZ'),
-  ];
-
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +16,10 @@ class _TasksScreenState extends State<TasksScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) => AddTaskScreen((newTaskTitle) {
-                    setState(() {
-                      tasks.add(Task(name: newTaskTitle));
-                    });
+//                    setState(() {
+//                      (Provider.of<Data>(context).tasks)
+//                          .add(Task(name: newTaskTitle));
+//                    });
                     Navigator.pop(context);
                   }));
 //            isScrollControlled: true,
@@ -73,7 +64,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<Data>(context).taskCount} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -85,7 +76,7 @@ class _TasksScreenState extends State<TasksScreen> {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: TasksList(tasks),
+              child: TasksList(),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
