@@ -151,3 +151,48 @@ return Consumer<Data>(
           taskTitle: taskData.tasks[index].name
     )})})
 ``` 
+
+## Protecting data from programmer errors
+
+It is important to restrict certain sections of your code to protect the data. For example, if a programmer tries to edit the data, it could potentially break the entire program and cause the data to crash. Once the data is protected with UnmodifiableListView, you have to use getter/setter methods to edit it.
+
+### UnmodifiableListView
+
+The UnmodifiableListView is an untouchable view of another list, so that the actual list is protected. You should use this when you want to keep the tasks list uneditable and safe.  
+
+```dart
+import 'dart:collection';
+...
+
+List<Task> _tasks = [
+    Task(name: 'Buy Milk'),
+    Task(name: 'Buy Cheese'),
+    Task(name: 'Stan SKZ'),
+  ];
+
+  UnmodifiableListView<Task> get tasks {
+    return UnmodifiableListView(_tasks);
+  }
+```
+
+### Getter
+
+In Dart, the `get` keyword refers to a getter function that retrieves specific data. For instance, I used the `get` for taskCount method to return the length of the data.
+
+```dart
+int get taskCount {
+    return _tasks.length;
+  }
+```
+
+### Setter
+
+Similarly, the setter function sets certain class fields. Dart actually has built in getter/setter methods to a class, so you don't have to specifically use the `get` and `set` keywords. 
+
+```dart
+void addItem(String newTaskTitle) {
+    final task = Task(name: newTaskTitle);
+    _tasks.add(task);
+    notifyListeners();
+  }
+```
