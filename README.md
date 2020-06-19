@@ -65,6 +65,8 @@ TaskCheckbox(
 
 The Provider carries the state across multiple widgets. It is created from the [Inherited widget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) and acts as a wrapper around it. 
 
+Here is a link to a basic project that focuses on the Provider widget: [Provider Github](https://github.com/caitlynbakery/basic_provider)
+
 ![](doc/level-widgets.PNG)
 
 ### Simple Scenario - No ChangeNotifier
